@@ -1,3 +1,4 @@
+import useAuthenticate from "@hooks/useAuthenticate";
 import { Navigate, useRouteError } from "react-router-dom";
 import styled from "styled-components";
 
@@ -25,9 +26,11 @@ const NotFoundContainer = styled.div`
 `;
 
 const NotFound = () => {
+  const { setIsAuthenticate } = useAuthenticate();
   const error: any = useRouteError();
 
   if (error && error.status === 401) {
+    setIsAuthenticate(false);
     return <Navigate to={"auth"} />;
   }
   let message = error.statusText || error.message || "404 Not Found";
