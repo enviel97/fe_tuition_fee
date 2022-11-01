@@ -21,6 +21,7 @@ interface BeneficiaryInfoProps {
 const BeneficiaryInfo = (props: BeneficiaryInfoProps) => {
   const errorMess = useRef<string>();
   const [beneficiary, setBeneficiary] = useState<User>();
+  const [loading, setLoading] = useState<boolean>();
   const listBill = useRef<Bill[]>([]);
   const itemDropdown = useRef<ItemProp[]>([]);
 
@@ -42,6 +43,7 @@ const BeneficiaryInfo = (props: BeneficiaryInfoProps) => {
     errorMess.current = "";
     setBeneficiary(res.data.user);
     const bills = res.data?.bills ?? [];
+
     listBill.current = bills;
     itemDropdown.current = bills.map((value: any) => ({
       name: value.name,
@@ -50,7 +52,13 @@ const BeneficiaryInfo = (props: BeneficiaryInfoProps) => {
   };
 
   const onSubmitted = async (data: FormValue) => {
-    await getBills({ friendlyId: data.id }).then(confirmForm).catch(resetForm);
+    setLoading(true);
+    await getBills({ friendlyId: data.id })
+      .then(confirmForm)
+      .catch(resetForm)
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -66,10 +74,14 @@ const BeneficiaryInfo = (props: BeneficiaryInfoProps) => {
                 message: "Id must equal 12 character",
               },
             })}
+            showLoading={loading === true}
+            disabled={loading === true}
             errorMess={errors.id?.message || errorMess.current}
           />
+
           <ButtonIconNeumorphism
             type='submit'
+            disabled={loading === true}
             icon={<RiUserSearchFill size={24} />}
           />
         </FormRow>

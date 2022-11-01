@@ -1,22 +1,56 @@
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Neumorphism, Error } from "../decorate/neumorphism";
 import BaseTextField from "./base";
 import { fadeInOut } from "@common/variants";
 import { TbInfoCircle } from "react-icons/tb";
 import { memo } from "react";
+import NormalLoading from "@components/Loading/NormalLoading";
 
-const TextFieldNeumorphism = (props: TextFieldProps) => {
+interface TextFieldNeumorphismProps extends TextFieldProps {
+  showLoading?: boolean;
+}
+
+const TextFieldNeumorphism = (props: TextFieldNeumorphismProps) => {
   const {
     height = "fit-content",
     width = "100%",
     className,
     label,
     errorMess,
+    showLoading,
     ...prop
   } = props;
   const identity = label ?? props.register?.name ?? "Label";
   return (
     <Neumorphism className={className} height={height} width={width}>
+      <AnimatePresence mode='wait'>
+        {showLoading && (
+          <motion.div
+            key={"motivation"}
+            variants={{
+              in: {
+                width: "fit-content",
+                opacity: [0, 0.6, 0.8, 1],
+                transition: {
+                  duration: 2,
+                },
+              },
+              out: {
+                width: "0",
+                opacity: [1, 0.4, 0.2, 0],
+                transition: {
+                  duration: 2,
+                },
+              },
+            }}
+            initial='outTop'
+            animate='in'
+            exit='outTop'
+          >
+            <NormalLoading />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <BaseTextField className='base' label={label} {...prop} />
 
       <AnimatePresence>

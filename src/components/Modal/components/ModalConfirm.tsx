@@ -20,7 +20,7 @@ const ModalConfirm = (props: ModalConfirmProps) => {
     controller.close(modalKey);
   };
 
-  const confirm = async () => {
+  const confirm = () => {
     onConfirm && onConfirm();
     controller.close(modalKey);
   };

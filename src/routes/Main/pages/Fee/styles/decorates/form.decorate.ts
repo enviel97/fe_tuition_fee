@@ -80,3 +80,7 @@ export const FormNotification = styled.div`
   text-align: right;
   font-size: 1.2rem;
 `;
+
+export const IdPromiseField = styled.div`
+  width: 100%;
+`;

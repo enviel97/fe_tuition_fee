@@ -3,6 +3,7 @@ import TimerCountdown from "@components/Loading/TimerCountdown";
 import ModalConfirm from "@components/Modal/components/ModalConfirm";
 import { useModals } from "@components/Modal/hooks/useModals";
 import { TextFieldNeumorphism } from "@components/TextInput";
+import { PromiseToast } from "@components/Toast/promise";
 import { parseId, praseMoney } from "@helpers/string";
 import useAuthenticate from "@hooks/useAuthenticate";
 import usePrompt from "@hooks/usePrompt";
@@ -61,17 +62,10 @@ const FormConfirm = () => {
     );
   };
   const onReject = async () => {
-    await rejectPayment(parseId(bill))
-      .then((res) => {
-        toast.success(res.message, {
-          position: "bottom-right",
-        });
-      })
-      .catch((error) => {
-        toast.error(error?.message ?? "Unknown error", {
-          position: "bottom-right",
-        });
-      });
+    PromiseToast({
+      action: async () => await rejectPayment(parseId(bill)),
+      pending: "Reject waiting...",
+    });
   };
 
   const onTimeUp = () => {
