@@ -58,11 +58,13 @@ const FormPaymentConfirmLoading = () => {
                 {!breakPoint.down("mobile") && <th scope='col'>Add at</th>}
               </tr>
             </thead>
-            <tr>
-              <td colSpan={8}>
-                <Skeleton count={6} />
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <td colSpan={8}>
+                  <Skeleton count={6} />
+                </td>
+              </tr>
+            </tbody>
           </Table>
         </TableContainer>
       </FormContainer>

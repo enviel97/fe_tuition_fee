@@ -69,7 +69,7 @@ export const FormRow = styled.div`
   display: flex;
   gap: 0.2rem;
   align-items: flex-end;
-  & caption {
+  & span {
     color: ${({ theme }) => theme.disableColor};
   }
 `;

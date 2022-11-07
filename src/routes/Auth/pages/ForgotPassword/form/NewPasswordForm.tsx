@@ -68,7 +68,7 @@ const NewPasswordForm = (props: NewPasswordFormProps) => {
             })}
             errorMess={errors.password?.message}
           />
-          <caption>* Enter your email you want to get password</caption>
+          <span>* Enter your email you want to get password</span>
         </FormRow>
         <FormRow>
           <TextFieldNeumorphism
@@ -81,7 +81,7 @@ const NewPasswordForm = (props: NewPasswordFormProps) => {
             })}
             errorMess={errors.passwordConfirm?.message}
           />
-          <caption>* Enter your email you want to get password</caption>
+          <span>* Enter your email you want to get password</span>
         </FormRow>
         <Divider />
         <ButtonTextNeumorphism
